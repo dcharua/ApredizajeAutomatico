@@ -21,11 +21,12 @@ Para correr la aplicación se debe clonar este repo y, acceder a la carpeta, cre
 python3 -m venv venv 
 source venv/bin/activate
 pip install -r requirements.txt 
+export FLASK_APP=app
 ```
 
 Posteriormente se debe correr la aplicación con el comando 
 ```
-python app.py
+flask run
 ```
 
 
