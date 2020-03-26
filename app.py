@@ -16,6 +16,6 @@ df = pd.DataFrame({'fecha':data_df1,
 def data_table():
      return render_template('index.html',  tables=[df.to_html(classes='data')], titles=df.columns.values)
 
-@app.route('/getdata', methods=("POST", "GET"))
+@app.route('/getjson', methods=("POST", "GET"))
 def data_json():
     return df.to_json(orient='records')
