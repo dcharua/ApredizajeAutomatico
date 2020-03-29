@@ -3,12 +3,15 @@ import json
 import pandas as pd
 import numpy as np
 
+# Relative imports
+from api.stats import Stats
+
 app = Flask(__name__)
 
-data = pd.read_csv("data/incidentes-viales.csv")
-data_df1 = data["fecha_creacion"]
-data_df2 = data["incidente_c4"]
-df = pd.DataFrame({"fecha": data_df1, "incidente": data_df2})
+df = pd.read_csv("data/incidentes-viales.csv")
+# data_df1 = data["fecha_creacion"]
+# data_df2 = data["incidente_c4"]
+# df = pd.DataFrame({"fecha": data_df1, "incidente": data_df2})
 
 
 def process_ingest(dataset_json_list):
@@ -38,5 +41,21 @@ def set_ingest():
     try:
         process_ingest(request.json)
         return "", 204
+    except:
+        return "Internal Server Error", 500
+
+
+# Get Statistical Estimations given a query param.
+@app.route("/basic-stats", methods=["GET"])
+def get_stats():
+    global df
+
+    column = request.args.get("column", default="", type=str)
+    if column == "" or column not in df.columns:
+        return "Invalid Input Error", 422
+
+    try:
+        currenct_df_stats = Stats(df)
+        return currenct_df_stats.get_stats(column)
     except:
         return "Internal Server Error", 500
