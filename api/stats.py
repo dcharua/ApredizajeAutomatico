@@ -11,8 +11,6 @@ class Stats:
         base_stats = {}
 
         # Check if column is numeric.
-        print(pd.to_numeric(self.df[column], errors="coerce").notnull().all())
-
         if pd.to_numeric(self.df[column], errors="coerce").notnull().all():
             base_stats["mean"] = self.df[column].mean()
             base_stats["median"] = self.df[column].median()
