@@ -3,13 +3,15 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt 
 
-# Obtener numero de accidentes por mes
+# Obtener promedio de numero de accidentes por mes
 x = sorted(list(df["mes"].unique()))
 month = df['mes']
 y = []
 
 for i in range(1, 13):
-    y.append(sum(1 for j in month if i == j))
+    total = sum(1 for j in month if i == j)
+    # dividir entre el numero de años
+    y.append(int(total/7))
 
 # obtener modelo predictorio
 # Sumatoria XY
