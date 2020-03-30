@@ -5,7 +5,7 @@
 ##### Integrantes:
 1. *Daniel Charua Garcia* - *A01017419*
 2. *Kyungtak Woo* - *A01372055*
-3.
+3. *Eduardo Badillo* - *A01020716*
 4.
 5.
 ---
