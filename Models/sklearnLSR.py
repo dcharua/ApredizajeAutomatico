@@ -1,13 +1,15 @@
 from sklearn.linear_model import LinearRegression
 
 
-# Obtener numero de accidentes por mes
+# Obtener promedio de numero de accidentes por mes
 x = sorted(list(df["mes"].unique()))
 month = df['mes']
 y = []
 
 for i in range(1, 13):
-    y.append(sum(1 for j in month if i == j))
+    total = sum(1 for j in month if i == j)
+    # dividir entre el numero de años
+    y.append(int(total/7))
 
 # hacer x bidimensional
 X = np.array(x).reshape((-1,1))
