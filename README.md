@@ -44,7 +44,9 @@ Las siguientes dependencias fueron usadas para el programa
 - Flask -> para generar la aplicación web
 - pandas -> para cargar la base de datos
 - numpy -> como auxliar para panda y manipulación de los datos
-- falta todas las de el modelo y las predcciones
+- jsnon -> utilizada para trabajar con datos JSON
+- sklearn -> herramienta para procesamiento de datos
+- matplotlib -> herramienta para visualización
 
 #### 3.3 Endpoints
 | Endpoint 	| Método 	| Formato 	| Regreso 	| Errores 	|
