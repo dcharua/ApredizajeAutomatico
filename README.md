@@ -1,4 +1,4 @@
-# ApredizajeAutomatico
+﻿# ApredizajeAutomatico
 
 ---
 
@@ -7,7 +7,7 @@
 2. *Kyungtak Woo* - *A01372055*
 3. *Eduardo Badillo* - *A01020716*
 4. *Enrique Vadillo* - *A01018714*
-5.
+5. *David Gonzalez* - *A01019873*
 ---
 
 ### 0 Docs
@@ -15,11 +15,11 @@ Documentación donde explique los formatos para la ingesta de datos, tutorial de
 https://docs.google.com/document/d/1hkYu3gl8QdzsJsMmM2OYcL-rFRi5klV-TZEwHLI6B78/edit?usp=sharing
 
 ### 1 Introducción
-En la Ciudad México existen 4.7 millones de vehículos automotores registrado, gran parte de la población depende de este medio de transporte. Debido al alto aforo vehicular se registran un promedio diario de 1,095 accidentes viales en la capital del país
-
+Es una realidad que en la Ciudad México se depende del transporte automovilistico de manera diaria. Existen más de 4.7 millones de vehículos automotores registrados en la ciudad, ya sean de uso privado o de uso público. Debido al alto aforo vehicular se registran un promedio diario de 1,095 accidentes viales de diferente caracter en la capital del país, posicionando a la ciudad en tercer lugar dentro de México. A nivel nacional el 2.2% de las defunsiones son a causa de accidentes de tránsito. 
+Afortunadamente se han realizado recompilación de datos de dichos accidentes y utilizando técnicas estadísticas, técnicas de machine learning y el uso de datasets de accidentes automovilísticos en la ciudad de México obtendremos predicciones, patrones y tendencias para poder predecir accidentes futuros y sus particularidades. Al encontrar patrones específicos podremos identificar en qué zonas, fechas, horas u otras variables influyen en la ocurrencia de accidentes automovilísticos, y se pueden elaborar sugerencias y precauciones para curvar estas cifras. 
 
 ### 2 Datos
-Para el dataset se descargo de la [pagina de datos abiertos de la CDMX](https://datos.cdmx.gob.mx/explore/dataset/incidentes-viales-c5/table/?disjunctive.incidente_c4&refine.ano=2020&dataChart=eyJxdWVyaWVzIjpbeyJjaGFydHMiOlt7InR5cGUiOiJsaW5lIiwiZnVuYyI6IkFWRyIsInlBeGlzIjoibGF0aXR1ZCIsInNjaWVudGlmaWNEaXNwbGF5Ijp0cnVlLCJjb2xvciI6IiM2NmMyYTUifV0sInhBeGlzIjoibWVzZGVjaWVycmUiLCJtYXhwb2ludHMiOiIiLCJ0aW1lc2NhbGUiOm51bGwsInNvcnQiOiIiLCJjb25maWciOnsiZGF0YXNldCI6ImluY2lkZW50ZXMtdmlhbGVzLWM1Iiwib3B0aW9ucyI6eyJkaXNqdW5jdGl2ZS5pbmNpZGVudGVfYzQiOnRydWV9fX1dLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlLCJ0aW1lc2NhbGUiOiIifQ%3D%3D) los reportes de accidentes viales en los que va del 2020 en la Cíudad de México
+Para el dataset se descargo de la [pagina de datos abiertos de la CDMX](https://datos.cdmx.gob.mx/explore/dataset/incidentes-viales-c5/table/?disjunctive.incidente_c4&refine.ano=2020&dataChart=eyJxdWVyaWVzIjpbeyJjaGFydHMiOlt7InR5cGUiOiJsaW5lIiwiZnVuYyI6IkFWRyIsInlBeGlzIjoibGF0aXR1ZCIsInNjaWVudGlmaWNEaXNwbGF5Ijp0cnVlLCJjb2xvciI6IiM2NmMyYTUifV0sInhBeGlzIjoibWVzZGVjaWVycmUiLCJtYXhwb2ludHMiOiIiLCJ0aW1lc2NhbGUiOm51bGwsInNvcnQiOiIiLCJjb25maWciOnsiZGF0YXNldCI6ImluY2lkZW50ZXMtdmlhbGVzLWM1Iiwib3B0aW9ucyI6eyJkaXNqdW5jdGl2ZS5pbmNpZGVudGVfYzQiOnRydWV9fX1dLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlLCJ0aW1lc2NhbGUiOiIifQ%3D%3D) los reportes de accidentes viales en los que va del 2020 en la Cíudad de México.
 
 ### 3 Aplicación web (API)
 La API fue desarrollada con [Flask](https://flask.palletsprojects.com/en/1.1.x/), se decidio usar esta opción ya que permite usar Python como lenguaje de programación, con todas su librerias de datos y machine learning, y de manera muy sencilla mostarar la infromación en paginas web.
@@ -46,6 +46,6 @@ Las siguientes dependencias fueron usadas para el programa
 - numpy -> como auxliar para panda y manipulación de los datos
 - falta todas las de el modelo y las predcciones
 
-#### 3.3 Enpoints
+#### 3.3 Endpoints
 - / -> En el home se muestra una tabla con la infromación cargada de la base de datos en local
 - /getjson -> Regresa los datos en forma de JSON
