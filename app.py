@@ -25,14 +25,14 @@ def data_table():
     global df
 
     return render_template(
-        "index.html", tables=[df.to_html(classes="data")], titles=df.columns.value
+        "index.html", tables=[df[:10].to_html(classes="data")]
     )
 
 
 @app.route("/getjson", methods=("POST", "GET"))
 def data_json():
     global df
-    return df.to_json(orient="records")
+    return df[:100].to_json(orient="records")
 
 
 @app.route("/ingest", methods=["POST"])

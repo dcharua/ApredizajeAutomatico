@@ -1,18 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
+    <h1>API de modelo para predecir accidentes basados con los datos de <a
+            href="https://datos.cdmx.gob.mx/explore/dataset/incidentes-viales-c5/table/?disjunctive.incidente_c4&dataChart=eyJxdWVyaWVzIjpbeyJjaGFydHMiOlt7InR5cGUiOiJsaW5lIiwiZnVuYyI6IkFWRyIsInlBeGlzIjoibGF0aXR1ZCIsInNjaWVudGlmaWNEaXNwbGF5Ijp0cnVlLCJjb2xvciI6IiM2NmMyYTUifV0sInhBeGlzIjoibWVzZGVjaWVycmUiLCJtYXhwb2ludHMiOiIiLCJ0aW1lc2NhbGUiOm51bGwsInNvcnQiOiIiLCJjb25maWciOnsiZGF0YXNldCI6ImluY2lkZW50ZXMtdmlhbGVzLWM1Iiwib3B0aW9ucyI6eyJkaXNqdW5jdGl2ZS5pbmNpZGVudGVfYzQiOnRydWV9fX1dLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlLCJ0aW1lc2NhbGUiOiIifQ%3D%3D">
+            link</a></h1>
 
-    <h1>Tabla de incidentes</h1>
-    
-    <a href="/getjson">Obtener datos en JSON</a>
+    <a
+        href="https://datos.cdmx.gob.mx/explore/dataset/incidentes-viales-c5/download/?format=csv&timezone=America/Mexico_City&lang=es&use_labels_for_header=true&csv_separator=%2C">descargar
+        la base de datos</a>
 
-{% for table in tables %}
-            {{titles[loop.index]}}
+    <p>La base de datos se puede agregar al proyecto con git lfs pull, si se tiene instalado, de los contrario se debera
+        agregar a la carpeta de data manualmente</p>
+
+        <h2>Endpoints</h2>
+    <table style="padding: 10px">
+        <tr>
+            <td>Endpoint</td>
+            <td>Método </td>
+            <td>Formato </td>
+            <td>Regreso </td>
+            <td>Errores </td>
+        </tr>
+
+        <tr>
+            <td>/predict</td>
+            <td>GET</td>
+            <td>
+                1.- curl --request GET --url 'http://127.0.0.1:5000/predict?model=linear_LSR&column=mes&value=5&=' 
+                <br>
+2.- curl --request GET --url 'http://127.0.0.1:5000/predict?model=sklearn_linear_LSR&column=mes&value=3&=' 
+<br>
+3.- curl --request GET --url 'http://127.0.0.1:5000/predict?model=polynomial_LSR&column=mes&value=10&=
+            </td>
+            <td>
+                1.- { "model": "linear_LSR", "input": { "model": "linear_LSR", "column": "mes", "value": "5" }, "prediction": { "y": 15249.308857808857 } } 2.- { "model": "sklearn_linear_LSR", "input": { "model": "sklearn_linear_LSR", "column": "mes", "value": "3" }, "prediction": { "y": 14959.210955710956, "r_sq": 0.1869050297875251 } } 3.- { "model": "polynomial_LSR", "input": { "model": "polynomial_LSR", "column": "mes", "value": "10" }, "prediction": { "y": 16614.988011987298, "r_sq": 0.6746019277743616 } }
+            </td>
+
+            <td>422 si no se proporciona modelo, columna o valor; 403 si no se encontró el modelo; 500 error interno</td>
+        </tr>
+
+        <tr>
+            <td>/ingest</td>
+            <td>POST</td>
+            <td>curl --request POST \ --url http://127.0.0.1:5000/ingest \ --header 'content-type: application/json' \ --data '[ { "folio": "C5/2001010/05202", "fecha_creacion": "01/01/2020", "hora_creacion": "12:17:31", "dia_semana": "Miercoles", "codigo_cierre": "La unidad de atención a emergencias fue despachada, llegó al lugar de los hechos y confirmó la emergencia reportada", "año cierre": "2020", "mes_cierre": "Enero", "hora_cierre": "13:39:38", "delegacion_inicio": "CUAUHTEMOC", "incidente_c4": "accidete-choque con lesionados", "latitud": "19.42534", "longitud": "-99.15655", "clas_con_f_alarma": "URGENCIAS MEDICAS", "tipo_entrada": "LLAMADO DEL 911", "delegacion_cierre": "CUAUHTEMOC", "geopoint": "19.42533999", "mes": "1" } ]</td>
+            <td></td>
+            <td>204 sin contenido; 500 error interno</td>
+        </tr>
+
+        <tr>
+            <td>/basic-stats</td>
+            <td>GET</td>
+            <td>curl --request GET --url 'http://127.0.0.1:5000/basic-stats?column=latitud&='</td>
+            <td>{ "latitud": "-99.655"}</td>
+            <td>422 input inválido; 500 error interno</td>
+        </tr>
+
+        <tr>
+            <td>/getjson</td>
+            <td>GET</td>
+            <td>curl --request GET --url 'http://127.0.0.1:5000/getjson'</td>
+            <td>La 100 primeras filas de la base de datos</td>
+            <td></td>
+        </tr>
+
+    </table>
+
+
+    <h2>Ejemplos de las 10 primeras filas de las base de datos</h2>
+
+    {% for table in tables %}
             {{ table|safe }}
 {% endfor %}
 </body>
+
 </html>
