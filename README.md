@@ -10,6 +10,12 @@
 5. *David Gonzalez* - *A01019873*
 ---
 
+## Diseño del Architecture
+
+[[/assets/architecture.png]]
+
+## Backend
+
 ### 0 Docs
 Ejemplo práctico de cómo funciona su API se encuentra en la siguiente liga:
 https://docs.google.com/document/d/1hkYu3gl8QdzsJsMmM2OYcL-rFRi5klV-TZEwHLI6B78/edit?usp=sharing
