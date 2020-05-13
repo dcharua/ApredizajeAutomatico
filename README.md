@@ -12,7 +12,7 @@
 
 ## Diseño del Architecture
 
-[[/assets/architecture.png]]
+![Arquitectura de la solución](assets/architecture.png)
 
 ## Backend
 
