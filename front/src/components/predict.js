@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+
 
 
 
@@ -25,8 +27,9 @@ function Predict() {
             method: "GET",
             //body: JSON.stringify({ "model": model, "column": "mes", "value": 3 }),
         }).then(function (response) {
-            setPrediction("58654");
-            //setPrediction(response.prediction.y);
+            //setPrediction("58654");
+            console.log(response);
+            setPrediction(response.prediction.y);
 
         }, function (error) {
             setPrediction("error ocurred");
@@ -60,10 +63,10 @@ function Predict() {
                 </input>
             </div>
             <div className="predictForm">
-                <button
+                <Button
                     onClick={e => onPredict(e)}>
                     Predict
-            </button>
+            </Button>
             </div>
 
             <div>
