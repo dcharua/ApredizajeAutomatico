@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, session, redirect, Response
+from flask_cors import CORS
 import json
 import pandas as pd
 import numpy as np
@@ -8,6 +9,8 @@ from api.stats import Stats
 from api.prediction import Prediction
 
 app = Flask(__name__)
+
+CORS(app)
 
 df = pd.read_csv("data/incidentes-viales-c5.csv")
 # data_df1 = data["fecha_creacion"]
