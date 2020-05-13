@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 
 function Predict() {
-    const [model, setModel] = useState('');
+    const [model, setModel] = useState('sklearn_linear_LSR');
     const [column, setColumn] = useState('');
     const [value, setValue] = useState('');
     const [prediction, setPrediction] = useState('0');
