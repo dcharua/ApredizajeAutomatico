@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+
 
 
 
@@ -25,18 +27,18 @@ function Predict() {
             method: "GET",
             //body: JSON.stringify({ "model": model, "column": "mes", "value": 3 }),
         })
-        .then(response => response.json())
-        .then(data => {
-            console.info(data)
-            setPrediction("58654");
-            //setPrediction(response.prediction.y);
+            .then(response => response.json())
+            .then(data => {
+                console.info(data)
+                //setPrediction("58654");
+                setPrediction(response.prediction.y);
 
-        })
-        .catch(error => {
-            setPrediction("error ocurred");
-            console.log("error, failed to  communicate with the API");
-            console.log(error);
-        });
+            })
+            .catch(error => {
+                setPrediction("error ocurred");
+                console.log("error, failed to  communicate with the API");
+                console.log(error);
+            });
     }
     return (
         <div>
@@ -64,10 +66,10 @@ function Predict() {
                 </input>
             </div>
             <div className="predictForm">
-                <button
+                <Button
                     onClick={e => onPredict(e)}>
                     Predict
-            </button>
+            </Button>
             </div>
 
             <div>
