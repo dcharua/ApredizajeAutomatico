@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 
 function Predict() {
-    const [model, setModel] = useState('');
+    const [model, setModel] = useState('sklearn_linear_LSR');
     const [column, setColumn] = useState('');
     const [value, setValue] = useState('');
     const [prediction, setPrediction] = useState('0');
@@ -23,19 +23,22 @@ function Predict() {
             value: value
         })
         fetch(url, {
-            mode: 'no-cors',
+            // mode: 'no-cors',
             method: "GET",
             //body: JSON.stringify({ "model": model, "column": "mes", "value": 3 }),
-        }).then(function (response) {
-            //setPrediction("58654");
-            console.log(response);
-            setPrediction(response.prediction.y);
-
-        }, function (error) {
-            setPrediction("error ocurred");
-            console.log("error, failed to  communicate with the API");
-            console.log(error);
         })
+            .then(response => response.json())
+            .then(data => {
+                console.info(data)
+                //setPrediction("58654");
+                setPrediction(response.prediction.y);
+
+            })
+            .catch(error => {
+                setPrediction("error ocurred");
+                console.log("error, failed to  communicate with the API");
+                console.log(error);
+            });
     }
     return (
         <div>
