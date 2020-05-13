@@ -11,8 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+p{
+  margin:10%;
+}
+li {
+  float: center;
+  padding: 8px;
+  display: inline;
+  list-style-type: none;
+  overflow: hidden;
+}
+.pageTitle{
+  margin-left: 50%;
+  margin-right: 50%;
+}
 
-
+.sectionTitle{
+  margin:5%;
+}
 .predictForm {
   margin: 5%;
   display: flex;

@@ -31,7 +31,7 @@ function Predict() {
             .then(data => {
                 console.info(data)
                 //setPrediction("58654");
-                setPrediction(response.prediction.y);
+                setPrediction(data.prediction.y);
 
             })
             .catch(error => {
@@ -42,9 +42,9 @@ function Predict() {
     }
     return (
         <div>
-            <h3>PREDICT</h3>
+            <h2 className="pageTitle">Predict</h2>
 
-            <h2>Select Parameters:</h2>
+            <h3 className="sectionTitle">Select Parameters:</h3>
             <div className="predictForm">
                 <label>Model</label>
                 <select onChange={e => handleModelChange(e)}>
@@ -73,7 +73,7 @@ function Predict() {
             </div>
 
             <div>
-                <h2>Prediction: {prediction}</h2>
+                <h2 className="sectionTitle">Prediction: {prediction}</h2>
             </div>
         </div >
     );

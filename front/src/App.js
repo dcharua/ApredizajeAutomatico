@@ -41,7 +41,8 @@ function App() {
           </Route>
           {/* El path de / tiene que ir hasta abajo, hay un orden*/}
           <Route path="/">
-            <h3>HOME</h3>
+            <h2 className="pageTitle">Home</h2>
+            <p>Go to predict to test the model</p>
           </Route>
         </Switch>
       </div>
