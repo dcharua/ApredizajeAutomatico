@@ -1,6 +1,7 @@
 import React from 'react';
 import Predict from './components/predict'
 import About from './components/about'
+import Home from './components/home'
 import MyNavbar from './components/MyNavbar';
 
 
@@ -31,8 +32,7 @@ function App() {
           </Route>
           {/* El path de / tiene que ir hasta abajo, hay un orden*/}
           <Route path="/">
-            <h2 className="pageTitle">Home</h2>
-            <p>Go to predict to test the model</p>
+            <Home />
           </Route>
         </Switch>
       </div>

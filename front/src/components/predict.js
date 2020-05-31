@@ -67,7 +67,6 @@ function Predict() {
                         <Form.Control type="text" placeholder="3" onChange={e => handleValueChange(e)}/>
                     </Form.Group>
                     <Button
-                            class="mar-b-1"
                             onClick={e => onPredict(e)}>
                             Predict
                     </Button>
