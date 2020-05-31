@@ -14,18 +14,19 @@ code {
 p{
   margin:10%;
 }
-li {
-  float: center;
-  padding: 8px;
-  display: inline;
-  list-style-type: none;
-  overflow: hidden;
-}
+
 .pageTitle{
   margin-left: 50%;
   margin-right: 50%;
 }
 
+.mar-r-1{
+  margin-right: 1rem;
+}
+
+.mar-b-1{
+  margin-bottom: 1rem;
+}
 .sectionTitle{
   margin:5%;
 }

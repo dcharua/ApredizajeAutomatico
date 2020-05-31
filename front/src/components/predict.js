@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-
+import Form from 'react-bootstrap/Form'
+import Container from 'react-bootstrap/Container'
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
 
 
 function Predict() {
     const [model, setModel] = useState('sklearn_linear_LSR');
-    const [column, setColumn] = useState('');
-    const [value, setValue] = useState('');
+    const [column, setColumn] = useState('mes');
+    const [value, setValue] = useState('3');
     const [prediction, setPrediction] = useState('0');
 
-    const handleModelChange = (e) => { setModel(e.target.value); console.log(e.target.value); }
-    const handleColumnChange = (e) => { setColumn(e.target.value); console.log(e.target.value); }
-    const handleValueChange = (e) => { setValue(e.target.value); console.log(e.target.value); }
+    const handleModelChange = (e) =>  setModel(e.target.value); 
+    const handleColumnChange = (e) =>  setColumn(e.target.value); 
+    const handleValueChange = (e) =>  setValue(e.target.value); 
 
 
     const onPredict = (e) => {
@@ -22,12 +24,7 @@ function Predict() {
             column: column,
             value: value
         })
-        fetch(url, {
-            // mode: 'no-cors',
-            method: "GET",
-            //body: JSON.stringify({ "model": model, "column": "mes", "value": 3 }),
-        })
-            .then(response => response.json())
+        fetch(url, {method: "GET",}).then(response => response.json())
             .then(data => {
                 console.info(data)
                 //setPrediction("58654");
@@ -42,39 +39,46 @@ function Predict() {
     }
     return (
         <div>
-            <h2 className="pageTitle">Predict</h2>
+            <Container>
+                <h1>Predict</h1>
+                <h3>Select Parameters:</h3>
 
-            <h3 className="sectionTitle">Select Parameters:</h3>
-            <div className="predictForm">
-                <label>Model</label>
-                <select onChange={e => handleModelChange(e)}>
-                    <option value='sklearn_linear_LSR'>
-                        sklearn_linear_LSR
-                </option >
-                    <option value='polynomial_LSR'>
-                        polynomial_LSR
-                </option>
-                    <option value='linear_LSR'>
-                        linear_LSR
-                </option>
-                </select>
-                <label> Columna</label>
-                <input onChange={e => handleColumnChange(e)}>
-                </input>
-                <label> Value</label>
-                <input onChange={e => handleValueChange(e)}>
-                </input>
-            </div>
-            <div className="predictForm">
-                <Button
-                    onClick={e => onPredict(e)}>
-                    Predict
-            </Button>
-            </div>
+                <Form>
+                    <Form.Group controlId="exampleForm.ControlSelect1">
+                        <Form.Label>Model</Form.Label>
+                        <Form.Control as="select"  onChange={e => handleModelChange(e)}>
+                        <option value='sklearn_linear_LSR'>
+                                sklearn_linear_LSR
+                        </option >
+                            <option value='polynomial_LSR'>
+                                polynomial_LSR
+                        </option>
+                            <option value='linear_LSR'>
+                                linear_LSR
+                        </option>
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="exampleForm.ControlInput2">
+                        <Form.Label>Columna</Form.Label>
+                        <Form.Control type="text" placeholder="mes" onChange={e => handleColumnChange(e)}/>
+                    </Form.Group>
+                    <Form.Group controlId="exampleForm.ControlInput3">
+                        <Form.Label>Value</Form.Label>
+                        <Form.Control type="text" placeholder="3" onChange={e => handleValueChange(e)}/>
+                    </Form.Group>
+                    <Button
+                            class="mar-b-1"
+                            onClick={e => onPredict(e)}>
+                            Predict
+                    </Button>
 
-            <div>
-                <h2 className="sectionTitle">Prediction: {prediction}</h2>
-            </div>
+                </Form>
+
+                <Jumbotron>
+                    <h2>Prediction: {prediction}</h2>
+                </Jumbotron>
+            </Container>
+           
         </div >
     );
 }
