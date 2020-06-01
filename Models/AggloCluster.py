@@ -10,7 +10,6 @@ smonth = 2
 
 # It is recommended to keep the sample at or below 10k rows or it can incurr in memory issues
 trainDf = df[np.logical_and(df['mes']==smonth, df['año_cierre']==syear)].sample(10000).dropna()
-pointsDf = trainDf[['']]
 
 print('num accidents:', trainDf.shape[0])
 
