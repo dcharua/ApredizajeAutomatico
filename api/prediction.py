@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 
 from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import r2_score
 
 
@@ -57,6 +58,44 @@ class Prediction:
 
         # Convert into response json.
         return json.dumps(response)
+
+    def sklearn_polinomial_PLSR(self, column, value):
+        x = sorted(list(df[column].unique()))
+        month = df[column]
+        y = []
+
+
+        for i in range(1, 13):
+            total = sum(1 for j in month if i == j)
+            # divide by number of years in dataset
+            y.append(int(total/7))
+    
+
+        # User Input Polynomial degree, reshape and fit data
+        polyDegree = 6
+
+        polynomial_features = PolynomialFeatures(degree=polyDegree)
+        x_poly = polynomial_features.fit_transform(np.array(x).reshape(-1, 1))
+
+        # Train model
+        model = LinearRegression()
+        model.fit(x_poly, y)
+        y_poly_pred = model.predict(x_poly)
+        
+        # Create response payload.
+        input_dict = {
+            "model": inspect.stack()[0][3],
+            "column": column,
+            "value": value,
+        }
+        output_dict = {
+            "y": y_poly_pred,
+            "r_sq": r2_score(y, y_poly_pred),
+        }
+        response = self.create_response_payload(input_dict, output_dict)
+
+        # Convert into response json.
+        return json.dumps(response)        
 
     # Polynomial LSR without ScikitLearn.
     def polynomial_LSR(self, column, value):
