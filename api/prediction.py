@@ -1,8 +1,11 @@
 # Moved from /Models by @kevinwkt.
+import base64
 import inspect
+import io
 import json
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
@@ -59,18 +62,18 @@ class Prediction:
         # Convert into response json.
         return json.dumps(response)
 
-    def sklearn_polinomial_PLSR(self, column, value):
-        x = sorted(list(df[column].unique()))
-        month = df[column]
+    # Polynomial LSR using ScikitLearn.
+    def sklearn_polynomial_LSR(self, column, value):
+        # HARDCODED Get average number of accidents per month.
+        x = sorted(list(self.df[column].unique()))
+        month = self.df[column]
         y = []
-
 
         for i in range(1, 13):
             total = sum(1 for j in month if i == j)
             # divide by number of years in dataset
             y.append(int(total/7))
     
-
         # User Input Polynomial degree, reshape and fit data
         polyDegree = 6
 
@@ -81,6 +84,15 @@ class Prediction:
         model = LinearRegression()
         model.fit(x_poly, y)
         y_poly_pred = model.predict(x_poly)
+
+        # Plot image to send back.
+        pic_IObytes = io.BytesIO()
+        plt.scatter(x, y, s=10)
+        plt.plot(x, y_poly_pred)
+        plt.savefig(pic_IObytes, format='png')
+
+        pic_IObytes.seek(0)
+        pic_hash = base64.b64encode(pic_IObytes.read())
         
         # Create response payload.
         input_dict = {
@@ -89,10 +101,10 @@ class Prediction:
             "value": value,
         }
         output_dict = {
-            "y": y_poly_pred,
+            "y": y_poly_pred[int(value)],
             "r_sq": r2_score(y, y_poly_pred),
         }
-        response = self.create_response_payload(input_dict, output_dict)
+        response = self.create_response_payload(input_dict, output_dict, pic_hash)
 
         # Convert into response json.
         return json.dumps(response)        
@@ -170,6 +182,15 @@ class Prediction:
         X_ = np.linspace(np.min(x), np.max(x), n)
         Y_ = a0 + a1 * X_ + a2 * (X_ ** 2) + a3 * (X_ ** 3)
 
+        # Plot image to send back.
+        pic_IObytes = io.BytesIO()
+        plt.scatter(x, y)
+        plt.plot(X_, Y_)
+        plt.savefig(pic_IObytes, format='png')
+
+        pic_IObytes.seek(0)
+        pic_hash = base64.b64encode(pic_IObytes.read())
+
         # Create response payload.
         input_dict = {
             "model": inspect.stack()[0][3],
@@ -180,7 +201,7 @@ class Prediction:
             "y": Y_[int(value)],
             "r_sq": r2_score(y, Y_),
         }
-        response = self.create_response_payload(input_dict, output_dict)
+        response = self.create_response_payload(input_dict, output_dict, pic_hash)
 
         # Convert into response json.
         return json.dumps(response)
@@ -222,6 +243,16 @@ class Prediction:
         ind = np.linspace(np.min(x), np.max(x), 12)
         dep = a0 + a1 * ind
 
+        # Plot image to send back.
+        pic_IObytes = io.BytesIO()
+        plt.plot(ind, dep, label='Regresion')
+        plt.scatter(x, y)
+        plt.legend()
+        plt.savefig(pic_IObytes, format='png')
+
+        pic_IObytes.seek(0)
+        pic_hash = base64.b64encode(pic_IObytes.read())
+
         # Create response payload.
         input_dict = {
             "model": inspect.stack()[0][3],
@@ -231,14 +262,15 @@ class Prediction:
         output_dict = {
             "y": dep[int(value)],
         }
-        response = self.create_response_payload(input_dict, output_dict)
+        response = self.create_response_payload(input_dict, output_dict, pic_hash)
 
         # Convert into response json.
         return json.dumps(response)
 
-    def create_response_payload(self, input_dict, output):
+    def create_response_payload(self, input_dict, output, plot = ""):
         prediction_json = {}
         prediction_json["model"] = input_dict["model"]
         prediction_json["input"] = input_dict
         prediction_json["prediction"] = output
+        prediction_json["plot"] = plot.decode('utf-8')
         return prediction_json

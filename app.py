@@ -69,7 +69,9 @@ def handle_prediction():
 
         # If all query params are found call the queried model with params.
         if model and column and value:
-            return predictions.predict(model, column, value)
+            output = predictions.predict(model, column, value)
+            print(output)
+            return output
 
         # Return 422 if model, column, and value were not provided.
         return "Invalid Input Error", 422
