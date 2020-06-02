@@ -92,13 +92,14 @@ def handle_prediction():
         model = request.args.get("model", default=None, type=str)
         column = request.args.get("column", default=None, type=str)
         value = request.args.get("value", default=None, type=str)
+        complete = request.args.get("complete", default=False, type=bool)
 
         # Instantiate prediction class.
         predictions = Prediction(df)
 
         # If all query params are found call the queried model with params.
-        if model and column and value:
-            return predictions.predict(model, column, value)
+        if model and column and value and complete is not None:
+            return predictions.predict(model, column, value, complete)
 
         # Return 422 if model, column, and value were not provided.
         return "Invalid Input Error", 422

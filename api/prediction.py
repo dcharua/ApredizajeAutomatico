@@ -17,11 +17,11 @@ class Prediction:
         self.df = df
 
     # Switch with dispatcher method.
-    def predict(self, model, column, value):
-        return getattr(self, model)(column, value)
+    def predict(self, model, column, value, complete):
+        return getattr(self, model)(column, value, complete)
 
     # Linear LSR with ScikitLearn.
-    def sklearn_linear_LSR(self, column, value):
+    def sklearn_linear_LSR(self, column, value, complete):
 
         # HARDCODED Get average of numbers of accidents per month.
         x = sorted(list(self.df[column].unique()))
@@ -46,6 +46,17 @@ class Prediction:
 
         # Get prediction.
         y_prediction = model.predict(X)
+        ind = np.linspace(np.min(x), np.max(x), 12)
+
+        # Plot image to send back.
+        pic_IObytes = io.BytesIO()
+        plt.plot(ind, y_prediction, label='Regresion')
+        plt.scatter(x, y)
+        plt.legend()
+        plt.savefig(pic_IObytes, format='png')
+
+        pic_IObytes.seek(0)
+        pic_hash = base64.b64encode(pic_IObytes.read())
 
         # Create response payload.
         input_dict = {
@@ -54,16 +65,17 @@ class Prediction:
             "value": value,
         }
         output_dict = {
-            "y": y_prediction[int(value)],
+            "y": list(y_prediction) if complete else y_prediction[int(value)],
             "r_sq": r_sq,
         }
-        response = self.create_response_payload(input_dict, output_dict)
+
+        response = self.create_response_payload(input_dict, output_dict, pic_hash)
 
         # Convert into response json.
         return json.dumps(response)
 
     # Polynomial LSR using ScikitLearn.
-    def sklearn_polynomial_LSR(self, column, value):
+    def sklearn_polynomial_LSR(self, column, value, complete):
         # HARDCODED Get average number of accidents per month.
         x = sorted(list(self.df[column].unique()))
         month = self.df[column]
@@ -101,7 +113,7 @@ class Prediction:
             "value": value,
         }
         output_dict = {
-            "y": y_poly_pred[int(value)],
+            "y": list(y_poly_pred) if complete else y_poly_pred[int(value)],
             "r_sq": r2_score(y, y_poly_pred),
         }
         response = self.create_response_payload(input_dict, output_dict, pic_hash)
@@ -110,7 +122,7 @@ class Prediction:
         return json.dumps(response)        
 
     # Polynomial LSR without ScikitLearn.
-    def polynomial_LSR(self, column, value):
+    def polynomial_LSR(self, column, value, complete):
         # HARDCODED Get average number of accidents per month.
         x = sorted(list(self.df[column].unique()))
         month = self.df[column]
@@ -198,7 +210,7 @@ class Prediction:
             "value": value,
         }
         output_dict = {
-            "y": Y_[int(value)],
+            "y": list(Y_) if complete else Y_[int(value)],
             "r_sq": r2_score(y, Y_),
         }
         response = self.create_response_payload(input_dict, output_dict, pic_hash)
@@ -207,7 +219,7 @@ class Prediction:
         return json.dumps(response)
 
     # Linear LSR without ScikitLearn.
-    def linear_LSR(self, column, value):
+    def linear_LSR(self, column, value, complete):
         # HARDCODED Get average number of accidents per month.
         x = sorted(list(self.df[column].unique()))
         month = self.df[column]
@@ -260,7 +272,7 @@ class Prediction:
             "value": value,
         }
         output_dict = {
-            "y": dep[int(value)],
+            "y": list(dep) if complete else dep[int(value)],
         }
         response = self.create_response_payload(input_dict, output_dict, pic_hash)
 
