@@ -42,7 +42,7 @@ function Home() {
             <h1>Making safer cities</h1>
             <h3>We predict car accidents, saving lives and building the cities of the future</h3>
             <br />
-            <Button className="btn-round" color="neutral" type="button" outline>
+            <Button >
             <Link to="/predict">Predict</Link>
             </Button>
           </div>

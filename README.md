@@ -95,3 +95,7 @@ npm run start
 ```
 
 la aplicación se va a abrir en un navegador en el puerto 3000, se debe de tener el backend corriendo en otra terminal para poder generar las predicciones.
+![Screenshot3](assets/sc3.jpg)
+![Screenshot1](assets/sc1.png)
+![Screenshot2](assets/sc2.png)
+

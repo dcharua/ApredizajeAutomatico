@@ -2,3 +2,4 @@ venv/
 .vscode/
 __pycache__/
 front/node_modules
+data/
