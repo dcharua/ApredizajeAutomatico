@@ -13,41 +13,38 @@
 
 ## Definición
 
-### 1 Introducción
-Es una realidad que en la Ciudad México se depende del transporte automovilistico de manera diaria. Existen más de 4.7 millones de vehículos automotores registrados en la ciudad, ya sean de uso privado o de uso público. Debido al alto aforo vehicular se registran un promedio diario de 1,095 accidentes viales de diferente caracter en la capital del país, posicionando a la ciudad en tercer lugar dentro de México. A nivel nacional el 2.2% de las defunsiones son a causa de accidentes de tránsito. 
-Afortunadamente se han realizado recompilación de datos de dichos accidentes y utilizando técnicas estadísticas, técnicas de machine learning y el uso de datasets de accidentes automovilísticos en la ciudad de México obtendremos predicciones, patrones y tendencias para poder predecir accidentes futuros y sus particularidades. Al encontrar patrones específicos podremos identificar en qué zonas, fechas, horas u otras variables influyen en la ocurrencia de accidentes automovilísticos, y se pueden elaborar sugerencias y precauciones para curvar estas cifras. 
-
-
-### 2 Problemática actual
+### 1. Problemática
 Es una realidad que en la Ciudad México se depende del transporte automovilístico de manera diaria. Existen más de 4.7 millones de vehículos automotores registrados en la ciudad, ya sean de uso privado o de uso público. Debido al alto aforo vehicular se registran un promedio diario de 1,095 accidentes viales de diferente carácter en la capital del país, posicionando a la ciudad en tercer lugar dentro de México. A nivel nacional el 2.2% de las defunciones son a causa de accidentes de tránsito. 
 Afortunadamente se han realizado recopilación de datos de dichos accidentes. 
 
-### 3 Objetivos
+### 2. Objetivos
 Objetivos Generales -> Elaborar una aplicación web con servicios que utilicen nuestros análisis de los datasets y proveer herramientas predictivas de manera que un usuario pueda ver índices de accidentes dentro de la Ciudad de México en el pasado y predicciones a futuro.
 
 Objetivos Particulares -> Utilizando técnicas estadísticas, técnicas de machine learning y el uso de datasets de accidentes automovilísticos en la Ciudad de México obtener predicciones, patrones y tendencias para presentar información estadística relevante y poder predecir accidentes futuros y sus particularidades. Al encontrar patrones específicos podremos identificar en qué zonas, fechas, horas u otras variables influyen en la ocurrencia de accidentes automovilísticos, y se pueden elaborar sugerencias y precauciones para curvar estas cifras e incluso mejorar la movilidad.
 
-### 4 Alcance 
+### 3. Alcance 
 El proyecto está diseñado como una herramienta para que los usuarios se puedan informar sobre la historia de los accidentes automovilístico en CDMX al despegar datos relevantes como horario con mayor accidentes, día de la semana con mayor accidentes, influencia de días festivos, etc. También el usuario puede tomar las predicciones como puntos de partida para tomar decisiones respecto al transporte en la ciudad. 
 
-## Diseño del Architecture
+## Diseño de la arquitectura
 
 ![Arquitectura de la solución](assets/architecture.png)
 
 ## Backend
 
-### 0 Docs
+### 0. Docs
 Ejemplo práctico de cómo funciona su API se encuentra en la siguiente liga:
 https://docs.google.com/document/d/1hkYu3gl8QdzsJsMmM2OYcL-rFRi5klV-TZEwHLI6B78/edit?usp=sharing
+Liga de la presentación:
+https://docs.google.com/presentation/d/1J8jjnebgfKSmf1FMJRiPgqum8abmhp_32X-DxMp_GLA/edit?usp=sharing
 
-### 1 Datos
-Para el dataset se descargo de la [pagina de datos abiertos de la CDMX](https://datos.cdmx.gob.mx/explore/dataset/incidentes-viales-c5/table/?disjunctive.incidente_c4&refine.ano=2020&dataChart=eyJxdWVyaWVzIjpbeyJjaGFydHMiOlt7InR5cGUiOiJsaW5lIiwiZnVuYyI6IkFWRyIsInlBeGlzIjoibGF0aXR1ZCIsInNjaWVudGlmaWNEaXNwbGF5Ijp0cnVlLCJjb2xvciI6IiM2NmMyYTUifV0sInhBeGlzIjoibWVzZGVjaWVycmUiLCJtYXhwb2ludHMiOiIiLCJ0aW1lc2NhbGUiOm51bGwsInNvcnQiOiIiLCJjb25maWciOnsiZGF0YXNldCI6ImluY2lkZW50ZXMtdmlhbGVzLWM1Iiwib3B0aW9ucyI6eyJkaXNqdW5jdGl2ZS5pbmNpZGVudGVfYzQiOnRydWV9fX1dLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlLCJ0aW1lc2NhbGUiOiIifQ%3D%3D) los reportes de accidentes viales en los que va del 2020 en la Cíudad de México.
+### 1. Datos
+Para el dataset se descargó de la [página de datos abiertos de la CDMX](https://datos.cdmx.gob.mx/explore/dataset/incidentes-viales-c5/table/?disjunctive.incidente_c4&refine.ano=2020&dataChart=eyJxdWVyaWVzIjpbeyJjaGFydHMiOlt7InR5cGUiOiJsaW5lIiwiZnVuYyI6IkFWRyIsInlBeGlzIjoibGF0aXR1ZCIsInNjaWVudGlmaWNEaXNwbGF5Ijp0cnVlLCJjb2xvciI6IiM2NmMyYTUifV0sInhBeGlzIjoibWVzZGVjaWVycmUiLCJtYXhwb2ludHMiOiIiLCJ0aW1lc2NhbGUiOm51bGwsInNvcnQiOiIiLCJjb25maWciOnsiZGF0YXNldCI6ImluY2lkZW50ZXMtdmlhbGVzLWM1Iiwib3B0aW9ucyI6eyJkaXNqdW5jdGl2ZS5pbmNpZGVudGVfYzQiOnRydWV9fX1dLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlLCJ0aW1lc2NhbGUiOiIifQ%3D%3D) los reportes de accidentes viales en los que va del 2020 en la Ciudad de México.
 
-### 2 Aplicación web (API)
-La API fue desarrollada con [Flask](https://flask.palletsprojects.com/en/1.1.x/), se decidio usar esta opción ya que permite usar Python como lenguaje de programación, con todas su librerias de datos y machine learning, y de manera muy sencilla mostarar la infromación en paginas web.
+### 2. Aplicación web (API)
+La API fue desarrollada con [Flask](https://flask.palletsprojects.com/en/1.1.x/), se decidió usar esta opción ya que permite usar Python como lenguaje de programación, con todas su librerías de datos y machine learning, y de manera muy sencilla mostar la información en páginas web.
 
 #### 2.1 Instalación
-Para correr la aplicación se debe clonar este repo y, acceder a la carpeta, crear un ambiente virtual y instalar los requerimentos de flask con los siguientes comandos:
+Para correr la aplicación se debe clonar este repo y, acceder a la carpeta, crear un ambiente virtual y instalar los requerimientos de flask con los siguientes comandos:
 
 ```
 python3 -m venv venv
@@ -55,7 +52,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 export FLASK_APP=app.py
 ```
-La base de datos se puede agregar al proyecto con git lfs pull, si se tiene instalado, de los contrario se debera [descargar](https://datos.cdmx.gob.mx/explore/dataset/incidentes-viales-c5/download/?format=csv&timezone=America/Mexico_City&lang=es&use_labels_for_header=true&csv_separator=%2C) y agregar a la carpeta de data manualmente
+La base de datos se puede agregar al proyecto con git lfs pull, si se tiene instalado, de los contrario se deberá [descargar](https://datos.cdmx.gob.mx/explore/dataset/incidentes-viales-c5/download/?format=csv&timezone=America/Mexico_City&lang=es&use_labels_for_header=true&csv_separator=%2C) y agregar a la carpeta de data manualmente
 
 Posteriormente se debe correr la aplicación con el comando
 ```
@@ -66,7 +63,7 @@ flask run
 Las siguientes dependencias fueron usadas para el programa
 - Flask -> para generar la aplicación web
 - pandas -> para cargar la base de datos
-- numpy -> como auxliar para panda y manipulación de los datos
+- numpy -> como auxiliar para panda y manipulación de los datos
 - jsnon -> utilizada para trabajar con datos JSON
 - sklearn -> herramienta para procesamiento de datos
 - matplotlib -> herramienta para visualización
@@ -82,10 +79,10 @@ Las siguientes dependencias fueron usadas para el programa
 
 ## Frontend
 
-### 1 Aplicación web (Frontend)
-El front fue desarrollado con [React](https://reactjs.org/), se decidio usar esta opción ya que permite generar one page aplications de manera sencilla y eficiente, ademas de tener mucho soporte y colaboración en la comunidad de desarrolladores
+### 1. Aplicación web (Frontend)
+El front fue desarrollado con [React](https://reactjs.org/), se decidio usar esta opción ya que permite generar one page applications de manera sencilla y eficiente, además de tener mucho soporte y colaboración en la comunidad de desarrolladores
 
-### 2 Instalación
+### 2. Instalación
 Para correr la aplicación se debe clonar este repo y, acceder a la carpeta front, instalar los node_modules y correr la aplicación con los siguientes comandos:
 
 ```
@@ -94,4 +91,4 @@ npm install
 npm run start
 ```
 
-la aplicación se va a abrir en un navegador en el puerto 3000, se debe de tener el backend corriendo en otra terminal para poder generar las predicciónes
+la aplicación se va a abrir en un navegador en el puerto 3000, se debe de tener el backend corriendo en otra terminal para poder generar las predicciones.
