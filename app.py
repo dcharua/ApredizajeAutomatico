@@ -64,19 +64,14 @@ def handle_cluster():
         model = request.args.get("model", default=None, type=str)
         month = request.args.get("month", default=None, type=int)
         year = request.args.get("year", default=None, type=int)
-        clusters = request.args.get("nclusters", default=5, type=int)
-
-        print(model)
-        print(month)
-        print(year)
-        print(clusters)
+        nclusters = request.args.get("nclusters", default=5, type=int)
 
         # Instantiate prediction class.
         clusters = Cluster(df)
 
         # If all query params are found call the queried model with params.
-        if model and month and year and clusters:
-            return clusters.cluster(model, month, year, clusters)
+        if model and month and year and nclusters:
+            return clusters.cluster(model, month, year, nclusters)
 
         # Return 422 if model, column, and value were not provided.
         return "Invalid Input Error", 422
