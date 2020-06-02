@@ -13,7 +13,6 @@ function About() {
 
 
   useEffect(() => {
-    console.log('in')
     let url = new URL('http://localhost:5000/predict?column=mes&model=polynomial_LSR&value=5&complete=True');
     fetch(url, {method: "GET",}).then(response => response.json())
       .then(res => {
