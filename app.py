@@ -7,6 +7,7 @@ import numpy as np
 # Relative imports
 from api.stats import Stats
 from api.prediction import Prediction
+from api.cluster import Cluster
 
 app = Flask(__name__)
 
@@ -54,6 +55,39 @@ def set_ingest():
         return "Internal Server Error", 500
 
 
+@app.route("/cluster", methods=["GET"])
+def handle_cluster():
+    global df
+
+    try:
+        # Parse query params.
+        model = request.args.get("model", default=None, type=str)
+        month = request.args.get("month", default=None, type=int)
+        year = request.args.get("year", default=None, type=int)
+        clusters = request.args.get("nclusters", default=5, type=int)
+
+        print(model)
+        print(month)
+        print(year)
+        print(clusters)
+
+        # Instantiate prediction class.
+        clusters = Cluster(df)
+
+        # If all query params are found call the queried model with params.
+        if model and month and year and clusters:
+            return clusters.cluster(model, month, year, clusters)
+
+        # Return 422 if model, column, and value were not provided.
+        return "Invalid Input Error", 422
+    except AttributeError:
+        # Handle if Cluster class did not find requested model.
+        return "Model Not Found Error", 403
+    except:
+        # Unhandled errors should be taken care of.
+        return "Internal Server Error", 500
+
+
 @app.route("/predict", methods=["GET"])
 def handle_prediction():
     global df
@@ -69,9 +103,7 @@ def handle_prediction():
 
         # If all query params are found call the queried model with params.
         if model and column and value:
-            output = predictions.predict(model, column, value)
-            print(output)
-            return output
+            return predictions.predict(model, column, value)
 
         # Return 422 if model, column, and value were not provided.
         return "Invalid Input Error", 422
